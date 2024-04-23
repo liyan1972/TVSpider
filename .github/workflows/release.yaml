@@ -31,56 +31,6 @@ jobs:
           python build.py --aliToken "${{ secrets.Ali_TOKEN }}" 
           python build.py --aliToken "${{ secrets.Ali_TOKEN }}" --is_18 True
 
-      - name: 上传Config
-        run: |
-          git config --global user.email "jadehh@live.com"
-          git config --global user.name "jade"
-          checkname=$(git rev-list --max-parents=0 HEAD)
-          git checkout  $checkname -b js  ##分支不存在用这个
-          # git checkout dist  ## 分支已存在用这个
-          cp -r code/18_open_config.json ./
-          cp -r code/18_tv_config.json ./
-          cp -r code/open_config.json ./
-          cp -r code/tv_config.json ./
-          cp -r code/js/ ./
-          cp -r code/lib ./
-          cp -r code/README.md ./README.md
-          cp -r code/resources ./
-          git add 18_open_config.json
-          git add 18_tv_config.json
-          git add open_config.json
-          git add tv_config.json
-          git add resources
-          git add js
-          git add lib 
-          git add README.md
-          commit_msg="* 更新TVConfig和OpenConfig"
-          git commit -a -m "$commit_msg"
-
-      - name: Config上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: js
-          force: true
-          tags: true
-          github_url: https://gitee.com
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: Config上传Github分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          repository: ${{ secrets.GithubPath }}
-          directory: .
-          branch: js
-          force: true
-          tags: true
-        env:
-          GITHUB_ACTOR: jadehh
       - name: 发布NodeJS版本
         run: |
           rm -r ./code
@@ -109,31 +59,6 @@ jobs:
           git add README.md
           commit_msg="* 发布 CatVodOpen新源"
           git commit -a -m "$commit_msg"
-
-      - name: 上传Github分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          repository: ${{ secrets.GitHubPath }}
-          directory: .
-          branch: dist
-          force: true
-          tags: true
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: 上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: dist
-          force: true
-          tags: true
-          github_url: https://gitee.com
-        env:
-          GITHUB_ACTOR: jadehh
 
       - name: 发布NodeJS 18+版本
         run: |
@@ -176,18 +101,5 @@ jobs:
           branch: 18_dist
           force: true
           tags: true
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: 18+上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: 18_dist
-          force: true
-          tags: true
-          github_url: https://gitee.com
         env:
           GITHUB_ACTOR: jadehh
