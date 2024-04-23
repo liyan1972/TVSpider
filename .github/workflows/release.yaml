@@ -118,14 +118,3 @@ jobs:
       - name: 18+查看分支
         run: |
           ls -l
-      - name: 18+上传Github分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          repository: ${{ secrets.GitHubPath }}
-          directory: .
-          branch: 18_dist
-          force: true
-          tags: true
-        env:
-          GITHUB_ACTOR: jadehh
