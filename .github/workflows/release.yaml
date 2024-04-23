@@ -57,30 +57,6 @@ jobs:
           commit_msg="* 更新TVConfig和OpenConfig"
           git commit -a -m "$commit_msg"
 
-      - name: Config上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: js
-          force: true
-          tags: true
-          github_url: https://gitee.com
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: Config上传Github分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          repository: ${{ secrets.GithubPath }}
-          directory: .
-          branch: js
-          force: true
-          tags: true
-        env:
-          GITHUB_ACTOR: jadehh
       - name: 发布NodeJS版本
         run: |
           rm -r ./code
@@ -109,31 +85,6 @@ jobs:
           git add README.md
           commit_msg="* 发布 CatVodOpen新源"
           git commit -a -m "$commit_msg"
-
-      - name: 上传Github分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          repository: ${{ secrets.GitHubPath }}
-          directory: .
-          branch: dist
-          force: true
-          tags: true
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: 上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: dist
-          force: true
-          tags: true
-          github_url: https://gitee.com
-        env:
-          GITHUB_ACTOR: jadehh
 
       - name: 发布NodeJS 18+版本
         run: |
@@ -176,18 +127,5 @@ jobs:
           branch: 18_dist
           force: true
           tags: true
-        env:
-          GITHUB_ACTOR: jadehh
-
-      - name: 18+上传Gitee分支
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GT_TOKEN }}
-          repository: ${{ secrets.GiteePath }}
-          directory: .
-          branch: 18_dist
-          force: true
-          tags: true
-          github_url: https://gitee.com
         env:
           GITHUB_ACTOR: jadehh
